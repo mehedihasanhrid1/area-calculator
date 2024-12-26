@@ -46,5 +46,25 @@ document.addEventListener("DOMContentLoaded", ()=>{
 
     shapeSelector.addEventListener("change", updateInputs);
 
+    calculateBtn.addEventListener('click', ()=> {
+        const selectedShape =  shapeSelector.value;
+
+        if(!selectedShape){
+            result.textContent = "Please select a shape."
+            return;
+        }
+        const shape = shapes[selectedShape];
+
+        const values = shape.inputs.map((_, index)=>parseFloat(document.getElementById(`input${index}`).value))
+        
+        if(values.some(isNaN)){
+             result.textContent = "Please enter a valid number."
+        }
+        else{
+            const area = shape.calculate(values);
+            result.textContent = `Area: ${area.toFixed(2)}`;
+        }
+    })
+
     updateInputs();
 })
